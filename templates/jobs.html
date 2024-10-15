@@ -7,49 +7,133 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        .navbar-brand img {
+            width: 40px;
+            height: 40px;
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #fff;
+        }
         .icon {
             margin-right: 8px;
         }
-        .offer-number {
-            font-weight: bold;
-            color: #007bff; /* Color de Bootstrap para enlaces */
-        }
-        
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="" alt="Logo del Proyecto">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Busqueda<i class="fas fa-search icon"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('somos') }}">Quienes Somos <i class="fas fa-users icon"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('cuenta') }}">Cuenta <i class="fas fa-user icon"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
-        <h1>Mejores ofertas de trabajo en Mexico -TI</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Título <i class="fas fa-briefcase icon"></i></th>
-                    <th>Empresa <i class="fas fa-building icon"></i></th>
-                    <th>Ubicación <i class="fas fa-map-marker-alt icon"></i></th>
-                    <th>Salario <i class="fas fa-money-bill-wave icon"></i></th>
-                    <th>Tipo de Trabajo <i class="fas fa-clipboard-check icon"></i></th>
-                    <th>Publicado <i class="fas fa-clock icon"></i></th>
-                    <th>Enlace <i class="fas fa-link icon"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for title, link, company, location, salary, job_type, posted_time in jobs %}
-                <tr>
-                    <td></td>
-                    <td>
-                        <span class="offer-number">{{ loop.index }}</span> {{ title }}
-                    </td>
-                    <td>{{ company }}</td>
-                    <td>{{ location }}</td>
-                    <td>{{ salary }}</td>
-                    <td>{{ job_type }}</td>
-                    <td>{{ posted_time }}</td>
-                    <td><a href="{{ link }}" target="_blank">Ver trabajo</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h1>Mejores ofertas de trabajo en México - TI</h1>
+        
+        <form method="GET" action="/">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <input type="text" name="keyword" class="form-control" placeholder="Buscar empleo" required>
+                </div>
+                <div class="col-md-4">
+                    <select name="location" class="form-control">
+                        <option value="">Seleccione un estado</option>
+                        <option value="Aguascalientes">Aguascalientes</option>
+                        <option value="Baja California">Baja California</option>
+                        <option value="Baja California Sur">Baja California Sur</option>
+                        <option value="Campeche">Campeche</option>
+                        <option value="Chiapas">Chiapas</option>
+                        <option value="Chihuahua">Chihuahua</option>
+                        <option value="Coahuila">Coahuila</option>
+                        <option value="Colima">Colima</option>
+                        <option value="Durango">Durango</option>
+                        <option value="Guanajuato">Guanajuato</option>
+                        <option value="Guerrero">Guerrero</option>
+                        <option value="Hidalgo">Hidalgo</option>
+                        <option value="Jalisco">Jalisco</option>
+                        <option value="México">México</option>
+                        <option value="Michoacán">Michoacán</option>
+                        <option value="Morelos">Morelos</option>
+                        <option value="Nayarit">Nayarit</option>
+                        <option value="Nuevo León">Nuevo León</option>
+                        <option value="Oaxaca">Oaxaca</option>
+                        <option value="Puebla">Puebla</option>
+                        <option value="Querétaro">Querétaro</option>
+                        <option value="Quintana Roo">Quintana Roo</option>
+                        <option value="San Luis Potosí">San Luis Potosí</option>
+                        <option value="Sinaloa">Sinaloa</option>
+                        <option value="Sonora">Sonora</option>
+                        <option value="Tabasco">Tabasco</option>
+                        <option value="Tamaulipas">Tamaulipas</option>
+                        <option value="Tlaxcala">Tlaxcala</option>
+                        <option value="Veracruz">Veracruz</option>
+                        <option value="Yucatán">Yucatán</option>
+                        <option value="Zacatecas">Zacatecas</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="job_type" class="form-control">
+                        <option value="">Seleccione modalidad</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="remoto">Remoto</option>
+                        <option value="híbrido">Híbrido</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar empleos</button>
+        </form>
+
+        {% if jobs %}
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Título <i class="fas fa-briefcase icon"></i></th>
+                        <th>Empresa <i class="fas fa-building icon"></i></th>
+                        <th>Ubicación <i class="fas fa-map-marker-alt icon"></i></th>
+                        <th>Salario <i class="fas fa-money-bill-wave icon"></i></th>
+                        <th>Tipo de Trabajo <i class="fas fa-clipboard-check icon"></i></th>
+                        <th>Publicado <i class="fas fa-clock icon"></i></th>
+                        <th>Enlace <i class="fas fa-link icon"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for title, link, company, location, salary, job_type, posted_time in jobs %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><a href="{{ link }}">{{ title }}</a></td>
+                        <td>{{ company }}</td>
+                        <td>{{ location }}</td>
+                        <td>{{ salary }}</td>
+                        <td>{{ job_type }}</td>
+                        <td>{{ posted_time }}</td>
+                        <td><a href="{{ link }}" target="_blank">Ver oferta</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="mt-4">No se encontraron empleos.</p>
+        {% endif %}
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
