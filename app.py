@@ -91,17 +91,17 @@ def home():
             all_jobs.append((listJobsTitles[i], hyperlinks[i], companies[i], workSites[i], salaries[i], jobTypes[i], postedTimes[i]))
 
     # Filtrar resultados según la ubicación y el tipo de trabajo solo si se han especificado
-    filtered_jobs = all_jobs  # Por defecto, mostrar todos los trabajos
+    filtered_jobs = all_jobs 
 
     if location or job_type:
         filtered_jobs = []
         for i in range(len(all_jobs)):
             # Filtrar por ubicación
-            if location and location.lower() not in all_jobs[i][3].lower():  # workSites[i]
+            if location and location.lower() not in all_jobs[i][3].lower(): 
                 continue
             
             # Filtrar por tipo de trabajo
-            if job_type and job_type.lower() != all_jobs[i][5].lower():  # jobTypes[i]
+            if job_type and job_type.lower() != all_jobs[i][5].lower():  
                 continue
             
             filtered_jobs.append(all_jobs[i])
