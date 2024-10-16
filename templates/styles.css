@@ -1,5 +1,5 @@
 body {
-    background-color: #f8f9fa; /* Fondo suave */
+    background-color: #f8f9fa; /* Un gris con un toque de calidez */
 }
 
 .card {
@@ -37,4 +37,28 @@ body {
         padding: 0.15rem;
         font-size: 0.375rem;
     }
+}
+
+/* Clase para la sección con la imagen de fondo */
+.header-background {
+    background-image: url('img/fondo.jpg'); /* Cambia \ por / */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 150px 0; /* Aumenta el tamaño para que abarque más contenido */
+    color: white;
+    text-align: center;
+}
+    
+/* Ajustes adicionales para el texto sobre la imagen */
+.header-background h1,
+.header-background p,
+.header-background a {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Añade sombra al texto para mejorar la legibilidad */
+}
+
+/* Botón de búsqueda */
+.header-background .btn {
+    margin-top: 20px;
+    background-color: rgb(24, 23, 23);
 }

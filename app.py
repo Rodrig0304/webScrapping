@@ -82,30 +82,27 @@ def home():
 
     listJobsTitles, hyperlinks, companies, workSites, salaries, jobTypes, postedTimes = find_jobs(keyword)
 
-    # Inicializar una lista con todos los trabajos
     all_jobs = []
     
     for i in range(len(listJobsTitles)):
-        # Asegurarse de que todas las listas tengan la misma longitud
         if i < len(companies) and i < len(workSites) and i < len(salaries) and i < len(jobTypes) and i < len(postedTimes):
             all_jobs.append((listJobsTitles[i], hyperlinks[i], companies[i], workSites[i], salaries[i], jobTypes[i], postedTimes[i]))
 
-    # Filtrar resultados según la ubicación y el tipo de trabajo solo si se han especificado
+    # Filtrar resultados según la ubicación y el tipo de trabajo
     filtered_jobs = all_jobs 
 
     if location or job_type:
         filtered_jobs = []
         for i in range(len(all_jobs)):
-            # Filtrar por ubicación
-            if location and location.lower() not in all_jobs[i][3].lower(): 
+            if location and location.lower() not in all_jobs[i][3].lower():
                 continue
             
-            # Filtrar por tipo de trabajo
-            if job_type and job_type.lower() != all_jobs[i][5].lower():  
+            if job_type and job_type.lower() != all_jobs[i][5].lower():
                 continue
             
             filtered_jobs.append(all_jobs[i])
 
+    print(filtered_jobs)  # Impresión para depuración
     return render_template('jobs.html', jobs=filtered_jobs)
 
 @app.route('/somos')
