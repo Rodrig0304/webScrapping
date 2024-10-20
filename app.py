@@ -17,7 +17,7 @@ def find_jobs(keyword):
     url = f"https://mx.computrabajo.com/trabajo-de-{keyword}"
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, Gecko) Chrome/92.0.4515.107 Safari/537.36"
     }
 
     try:
@@ -52,20 +52,20 @@ def find_jobs(keyword):
         for result in salary_results:
             salary_span = result.find("span", class_="icon i_salary")
             if salary_span:
-                salary_text = salary_span.find_next_sibling().string.strip() if salary_span.find_next_sibling() else "No disponible"
+                salary_text = salary_span.find_next_sibling(text=True).strip() if salary_span.find_next_sibling() else "No disponible"
+                salaries.append(salary_text)
             else:
-                salary_text = "No disponible"
-            salaries.append(salary_text)
+                salaries.append("No disponible")
 
             job_type_span = result.find("span", class_="icon i_home")
-            if job_type_span and job_type_span.find_next_sibling():
-                job_type_text = job_type_span.find_next_sibling().string.strip()
+            if job_type_span:
+                job_type_text = job_type_span.find_next_sibling(text=True).strip() if job_type_span.find_next_sibling() else "No disponible"
+                jobTypes.append(job_type_text)
             else:
-                job_type_text = "No disponible"
-            jobTypes.append(job_type_text)
+                jobTypes.append("No disponible")
 
             posted_time_elem = result.find_next("p", class_="fs13 fc_aux mt15")
-            posted_time_text = posted_time_elem.string.strip() if posted_time_elem else "No disponible"
+            posted_time_text = posted_time_elem.text.strip() if posted_time_elem else "No disponible"
             postedTimes.append(posted_time_text)
 
         return listJobsTitles, hyperlinks, companies, workSites, salaries, jobTypes, postedTimes
@@ -85,10 +85,11 @@ def home():
     all_jobs = []
     
     for i in range(len(listJobsTitles)):
-        if i < len(companies) and i < len(workSites) and i < len(salaries) and i < len(jobTypes) and i < len(postedTimes):
+        if (i < len(companies) and i < len(workSites) and 
+            i < len(salaries) and i < len(jobTypes) and 
+            i < len(postedTimes)):
             all_jobs.append((listJobsTitles[i], hyperlinks[i], companies[i], workSites[i], salaries[i], jobTypes[i], postedTimes[i]))
 
-    # Filtrar resultados según la ubicación y el tipo de trabajo
     filtered_jobs = all_jobs 
 
     if location or job_type:
@@ -102,12 +103,11 @@ def home():
             
             filtered_jobs.append(all_jobs[i])
 
-    print(filtered_jobs)  # Impresión para depuración
     return render_template('jobs.html', jobs=filtered_jobs)
 
 @app.route('/somos')
 def somos():
-    return render_template('quienes_somos.html')
+    return render_template('somos.html')
 
 @app.route('/cuenta')
 def cuenta():

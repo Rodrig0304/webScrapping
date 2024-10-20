@@ -1,0 +1,61 @@
+
+
+/* Ajustes del body y html para eliminar márgenes y padding */
+body, html {
+    margin: 1%;
+    padding: 0;
+    height: 100%;
+    background-color: rgb(233, 237, 240);
+}
+
+.header-background {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Asegura que el fondo cubra la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea el contenido hacia arriba */
+   
+}
+
+h1 {
+    margin-top: 0;
+    padding-top: 20px; /* Ajusta si quieres más espacio */
+}
+
+.navbar {
+    margin-bottom: 0; /* Elimina espacio entre navbar y contenido */
+}
+
+.icon {
+    font-size: 0.10 rem; /* Tamaño de los iconos */
+}
+
+/* Estilos para las tarjetas */
+.card {
+    border: 1px solid #000000;
+    border-radius: 0.25rem;
+}
+
+.card-title a {
+    text-decoration: none; /* Elimina subrayado del enlace */
+    color: #007bff; /* Color del enlace */
+}
+
+.card-title a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Ajustes para la tabla */
+.table th, .table td {
+    vertical-align: middle; /* Alinea el contenido de las celdas */
+}
+
+.table a {
+    text-decoration: none; /* Elimina subrayado de los enlaces */
+    color: #007bff; /* Color del enlace */
+}
+
+.table a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}

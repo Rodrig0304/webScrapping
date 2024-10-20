@@ -14,7 +14,7 @@ def findJobs(keyword):
     url = f"https://mx.computrabajo.com/trabajo-de-{keyword}"
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, Gecko) Chrome/92.0.4515.107 Safari/537.36"
     }
     
     print("URL generada:", url)
@@ -55,7 +55,7 @@ def findJobs(keyword):
         # Obtener salario
         salary_span = result.find("span", class_="icon i_salary")
         if salary_span:
-            salary_text = salary_span.find_next_sibling(text=True).strip()
+            salary_text = salary_span.find_next_sibling(string=True).strip()  # Usar 'string' en vez de 'text'
         else:
             salary_text = "No disponible"
         salaries.append(salary_text)
@@ -63,13 +63,13 @@ def findJobs(keyword):
         # Obtener modalidad (tipo de trabajo)
         job_type_span = result.find("span", class_="icon i_home")
         if job_type_span:
-            job_type_text = job_type_span.find_next_sibling(text=True).strip()
+            job_type_text = job_type_span.find_next_sibling(string=True).strip()  # Usar 'string' en vez de 'text'
         else:
             job_type_text = "No disponible"
         jobTypes.append(job_type_text)
 
         # Obtener la fecha de publicación
-        posted_time_elem = result.find("p", class_="fs13 fc_aux mt15")
+        posted_time_elem = result.find_next("p", class_="fs13 fc_aux mt15")
         posted_time_text = posted_time_elem.text.strip() if posted_time_elem else "No disponible"
         postedTimes.append(posted_time_text)
 
