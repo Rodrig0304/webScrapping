@@ -2,33 +2,33 @@
 
 /* Ajustes del body y html para eliminar márgenes y padding */
 body, html {
-    margin: 1%;
+    margin:  10%;
     padding: 0;
     height: 100%;
-    background-color: rgb(233, 237, 240);
+    background-color: rgb(155, 163, 168);
 }
 
 .header-background {
     margin: 0;
     padding: 0;
-    min-height: 100vh; /* Asegura que el fondo cubra la pantalla */
+    min-height: 100vh; 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Alinea el contenido hacia arriba */
+    justify-content: flex-start; 
    
 }
 
 h1 {
     margin-top: 0;
-    padding-top: 20px; /* Ajusta si quieres más espacio */
+    padding-top: 20px; 
 }
 
 .navbar {
-    margin-bottom: 0; /* Elimina espacio entre navbar y contenido */
+    margin-bottom: 0; 
 }
 
 .icon {
-    font-size: 0.10 rem; /* Tamaño de los iconos */
+    font-size: 0.10 rem;
 }
 
 /* Estilos para las tarjetas */
@@ -38,24 +38,36 @@ h1 {
 }
 
 .card-title a {
-    text-decoration: none; /* Elimina subrayado del enlace */
-    color: #007bff; /* Color del enlace */
+    text-decoration: none; 
+    color: #007bff;
 }
 
 .card-title a:hover {
-    text-decoration: underline; /* Subrayado al pasar el mouse */
+    text-decoration: underline; 
 }
 
 /* Ajustes para la tabla */
 .table th, .table td {
-    vertical-align: middle; /* Alinea el contenido de las celdas */
+    vertical-align: middle; 
 }
 
 .table a {
-    text-decoration: none; /* Elimina subrayado de los enlaces */
-    color: #007bff; /* Color del enlace */
+    text-decoration: none; 
+    color: #007bff; 
 }
 
 .table a:hover {
-    text-decoration: underline; /* Subrayado al pasar el mouse */
+    text-decoration: underline; 
 }
+/* Fondo solo para la parte superior hasta el botón de buscar empleos */
+.bg-image {
+    background-image: url('../img/fondo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; 
+    width: 100%;
+    position: relative;
+    z-index: -1; 
+}
+
