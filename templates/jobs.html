@@ -20,31 +20,25 @@
     <div class="bg-image">
         <div class="content">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-sm bg-transparent">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/img/logo.PNG">EmpleosAllInstante</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto"></ul>
-                        <form class="d-flex justify-content-center align-items-center flex-wrap w-sm-auto" role="search">
-                            <input class="form-control me-2 w-auto" type="search" placeholder="Buscar" aria-label="Search">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link w-auto" aria-current="Quienes Somos" href="/somos">Quiénes somos</a>
-                                </li>
-                            </ul>
-                            <a href="/templates/cuenta.html" class="btn btn-outline-primary w-auto">
-                                Iniciar sesión
-                            </a>
-                            
-                        </form>
-                    </div>
-                </div>
-            </nav>
-
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img  style="width:auto;height:50px;"src="/img/logo.PNG" alt="EmpleosAllInstante">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto"> 
+                <li class="nav-item">
+                    <a class="nav-link" href="/templates/jobs.html">Busqueda <i class="fas fa-search icon"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/templates/somos.html">Quienes Somos <i class="fas fa-users icon"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/templates/cuenta.html">Cuenta <i class="fas fa-user icon"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
             <h1 class="text-center m-4">Mejores ofertas de trabajo en México</h1>
             <form class="mt-4 mb-4" method="GET" action="/">
                 <div class="row mb-3">

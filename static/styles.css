@@ -61,7 +61,7 @@ h1 {
 }
 /* Fondo solo para la parte superior hasta el botón de buscar empleos */
 .bg-image {
-    background-image: url('../img/fondo.jpg'); 
+    background-image: url('/img/fondo.jpg'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
