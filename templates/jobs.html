@@ -10,34 +10,88 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-     
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow-y: auto; /* Permite el desplazamiento vertical */
+        }
+        video {
+            position: absolute; /* Mantiene el video en el fondo */
+            top: 0; /* Alinea el video a la parte superior */
+            left: 50%; /* Centra el video horizontalmente */
+            transform: translateX(-50%); /* Ajusta la posición para centrar */
+            width: 100vw; /* Asegura que el video cubra todo el ancho de la ventana */
+            height: 100vh; /* Asegura que el video cubra toda la altura de la ventana */
+            z-index: -1; /* Envía el video al fondo */
+            object-fit: cover; /* Cubre todo el fondo */
+        }
+        .content {
+            position: relative; /* Para posicionar el contenido sobre el video */
+            z-index: 1; /* Asegura que el contenido esté por encima del video */
+            color: black; /* Cambia el color del texto a negro */
+            padding: 20px; /* Añade un poco de espacio alrededor del contenido */
+        }
+        .navbar {
+            position: relative; /* Asegura que el menú se mantenga en su lugar */
+            z-index: 2; /* Asegura que el menú esté sobre el video */
+            padding: 20px; /* Aumenta el padding para hacer la barra más larga */
+            height: 80px; /* Ajusta la altura de la barra de navegación */
+            background-color: white; /* Cambia el color de fondo a blanco */
+        }
+        .navbar-brand img {
+            height: 60px; /* Ajusta la altura del logo si es necesario */
+        }
+        .nav-link {
+            color: black; /* Cambia el color de los enlaces a negro */
+        }
+        .nav-link:hover {
+            color: gray; /* Cambia el color al pasar el ratón */
+        }
+
+        /* Estilo de la tabla */
+        .table {
+            background-color: rgba(255, 255, 255, 0.); /* Fondo blanco con 80% de opacidad */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+        }
+
+        /* Estilo de las tarjetas */
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con 80% de opacidad */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+        }
     </style>
 </head>
 <body>
 
-    <!-- Contenedor de fondo -->
-    
+    <!-- Video de fondo -->
+    <video autoplay muted loop>
+        <source src="/static/img/FondoV.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+    </video>
+
     <div class="bg-image">
         <div class="content">
             <!-- Navbar -->
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">
-            <img  style="width:auto;height:50px;"src="/static/img/logo.png" alt="EmpleosAllInstante">
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto"> 
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Busqueda <i class="fas fa-search icon"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/somos">Quienes Somos <i class="fas fa-users icon"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cuenta">Cuenta <i class="fas fa-user icon"></i></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="#">
+                    <img style="width:auto;" src="/static/img/logo.png" alt="EmpleosAllInstante">
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto"> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Busqueda <i class="fas fa-search icon"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/somos">Quienes Somos <i class="fas fa-users icon"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cuenta">Cuenta <i class="fas fa-user icon"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
     
             <h1 class="text-center m-4">Mejores ofertas de trabajo en México</h1>
             <form class="mt-4 mb-4" method="GET" action="/">
