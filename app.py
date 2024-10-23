@@ -105,6 +105,7 @@ def home():
 
     return render_template('jobs.html', jobs=filtered_jobs)
 
+
 @app.route('/somos')
 def somos():
     return render_template('somos.html')

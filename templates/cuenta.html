@@ -7,13 +7,54 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+        }
+        .container-fluid {
+            z-index: 1;
+            position: relative;
+            color: white;
+        }
+        .card {
+            background-color: transparent; /* Fondo transparente */
+            border: none;
+        }
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente con menos transparencia */
+            color: #000; /* Color del texto de los inputs */
+        }
+        .form-label {
+            color: #000; /* Color de las etiquetas de los inputs */
+        }
+    </style>
 </head>
 <body>
+    <video autoplay muted loop>
+        <source src="/static/img/FondoV.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+    </video>
+
     <!-- Login Title -->
-     <div class="container-fluid mt-3 d-flex flex-column align-items-center">
+    <div class="container-fluid mt-3 d-flex flex-column align-items-center">
         <h2>EmpleosAllInstante</h2>
         <p class="fs-5">Inicia sesión con tu cuenta</p>
-     </div>
+    </div>
+
     <!-- Login form -->
     <section>
         <div class="container mt-5 pt-5">
@@ -24,13 +65,13 @@
                             <form>
                                 <label for="username" class="form-label mt-3">Nombre de usuario</label>
                                 <input type="text" class="form-control py-2" 
-                                    placeholder="Ingresa aquí tu nombre de usuario">
+                                    placeholder="Ingresa aquí tu nombre de usuario" required>
                                 <label for="emailAddress" class="form-label">Correo electrónico</label>
                                 <input type="email" class="form-control py-2" 
-                                    placeholder="Ingresa tu correo electrónico">
+                                    placeholder="Ingresa tu correo electrónico" required>
                                 <label for="userPassword" class="form-label">Contraseña</label>
                                 <input type="password" class="form-control py-2" 
-                                    placeholder="Ingresa tu contraseña">
+                                    placeholder="Ingresa tu contraseña" required>
                                 <div class="text-center mt-3">
                                     <button class="btn btn-primary mb-3">Entrar</button>
                                     <a href="#" class="nav-link">¿Ya tienes una cuenta?</a>
