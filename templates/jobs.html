@@ -20,8 +20,8 @@
       .nav-link:hover { color: gray; }
 
       /* Estilo para tablas y tarjetas */
-      .table, .card { background-color: rgba(173, 216, 230, 0.8); border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); } /* Cambiado el color de fondo */
-
+      .table, .card { background-color: rgb(255, 255, 255); border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); } /* Cambiado el color de fondo */
+    
       /* Estilos para el icono de favorito */
       .favorite-icon { cursor: pointer; color: gray; }
       .favorite-icon.selected { color: gold; } /* Color del icono cuando está seleccionado */
@@ -100,12 +100,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <select name="job_type" class="form-control">
-                            <option value="">Seleccione modalidad</option>
-                            <option value="presencial">Presencial</option>
-                            <option value="remoto">Remoto</option>
-                            <option value="híbrido">Híbrido</option>
-                        </select>
+                     
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary header-button w-10">Buscar empleos</button>
@@ -133,7 +128,6 @@
                             <th>Empresa <i class="fas fa-building icon"></i></th>
                             <th>Ubicación <i class="fas fa-map-marker-alt icon"></i></th>
                             <th>Salario <i class="fas fa-money-bill-wave icon"></i></th>
-                            <th>Tipo de Trabajo <i class="fas fa-clipboard-check icon"></i></th>
                             <th>Publicado <i class="fas fa-clock icon"></i></th>
                             <th>Enlace <i class="fas fa-link icon"></i></th>
                         </tr>
@@ -147,7 +141,7 @@
                             <td>{{ company }}</td>
                             <td>{{ location }}</td>
                             <td>{{ salary }}</td>
-                            <td>{{ job_type }}</td>
+                            
                             <td>{{ posted_time }}</td>
                             <td><a href="{{ link }}" class="btn btn-info">Ver oferta</a></td>
                         </tr>
@@ -167,7 +161,7 @@
                                 <p class="card-text">
                                     <strong>Ubicación:</strong> {{ location }}<br>
                                     <strong>Salario:</strong> {{ salary }}<br>
-                                    <strong>Tipo de Trabajo:</strong> {{ job_type }}<br>
+                                    
                                     <strong>Publicado:</strong> {{ posted_time }}
                                 </p>
                                 <button class="btn btn-light favorite-icon" onclick="toggleFavorite(this)">

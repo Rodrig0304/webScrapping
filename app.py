@@ -17,22 +17,27 @@ def find_jobs(keyword):
     url = f"https://mx.computrabajo.com/trabajo-de-{keyword}"
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, Gecko) Chrome/92.0.4515.107 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, Gecko) Chrome/101.0.4951.41 Safari/537.36"
     }
 
     try:
         response = requests.get(url, headers=headers)
         response.raise_for_status()
-
+        print("Respuesta recibida correctamente.")  # Mensaje de depuración
+        
         soup = BeautifulSoup(response.content, "html.parser")
 
+        # Obtener títulos y enlaces de trabajos
         results = soup.find_all("a", class_="js-o-link fc_base")
+        print(f"Se encontraron {len(results)} trabajos.")  # Mensaje de depuración
         for result in results:
             hyperlink = f"https://mx.computrabajo.com{result['href']}"
             listJobsTitles.append(result.text.strip())
             hyperlinks.append(hyperlink)
 
+        # Obtener nombres de empresas
         results = soup.find_all("p", class_="dIB fs16 fc_base mt5")
+        print(f"Se encontraron {len(results)} nombres de empresas.")  # Mensaje de depuración
         for result in results:
             company_link = result.find("a")
             if company_link:
@@ -40,7 +45,9 @@ def find_jobs(keyword):
             else:
                 companies.append("Empresa no disponible")
 
+        # Obtener ubicaciones
         results = soup.find_all("p", class_="fs16 fc_base mt5")
+        print(f"Se encontraron {len(results)} ubicaciones.")  # Mensaje de depuración
         for result in results:
             location_span = result.find("span")
             if location_span:
@@ -48,7 +55,9 @@ def find_jobs(keyword):
             else:
                 workSites.append("Ubicación no disponible")
 
+        # Obtener salarios y tipos de trabajo
         salary_results = soup.find_all("div", class_="fs13 mt15")
+        print(f"Se encontraron {len(salary_results)} salarios y tipos de trabajo.")  # Mensaje de depuración
         for result in salary_results:
             salary_span = result.find("span", class_="icon i_salary")
             if salary_span:
@@ -104,7 +113,6 @@ def home():
             filtered_jobs.append(all_jobs[i])
 
     return render_template('jobs.html', jobs=filtered_jobs)
-
 
 @app.route('/somos')
 def somos():

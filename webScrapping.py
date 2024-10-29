@@ -55,7 +55,7 @@ def findJobs(keyword):
         # Obtener salario
         salary_span = result.find("span", class_="icon i_salary")
         if salary_span:
-            salary_text = salary_span.find_next_sibling(string=True).strip()  # Usar 'string' en vez de 'text'
+            salary_text = salary_span.find_parent().text.strip()  # Obtener el texto del padre
         else:
             salary_text = "No disponible"
         salaries.append(salary_text)
@@ -63,7 +63,7 @@ def findJobs(keyword):
         # Obtener modalidad (tipo de trabajo)
         job_type_span = result.find("span", class_="icon i_home")
         if job_type_span:
-            job_type_text = job_type_span.find_next_sibling(string=True).strip()  # Usar 'string' en vez de 'text'
+            job_type_text = job_type_span.find_parent().text.strip()  # Obtener el texto del padre
         else:
             job_type_text = "No disponible"
         jobTypes.append(job_type_text)
