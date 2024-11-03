@@ -21,10 +21,32 @@
         .navbar-nav { margin-left: auto; }
         .btn-no-border { border: none; background: none; color: #007bff; padding: 0; }
         .search-form { display: flex; justify-content: center; }
+        
+        /* Estilo para el botón de búsqueda */
+        .btn-primary {
+            background-color: #060606; /* Cambia el color según tu paleta */
+            border: 1px solid #000000; /* Asegúrate de que el borde sea delgado */
+            padding: 5px 10px; /* Ajusta el padding para hacerlo más delgado */
+            transition: background-color 0.3s ease; /* Efecto de transición */
+        
+        }
+    
+        .btn-primary:hover {
+            background-color: #007bff; /* Color al pasar el mouse */
+        }
+    
+        /* Estilo para el selector de estado */
+        select {
+            height: auto; /* Asegúrate de que el select se ajuste a su contenido */
+            padding: 10px; /* Añadir padding para mejorar la visualización */
+            border-radius: 5px; /* Opcional: para esquinas redondeadas */
+        }
+    
         .table, .card { background-color: rgb(255, 255, 255); border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
         .favorite-icon { cursor: pointer; color: gray; }
         .favorite-icon.selected { color: gold; }
     </style>
+    
 </head>
 <body>
 
@@ -70,7 +92,7 @@
                     </div>
                     <div class="col-md-5">
                           <select name="location" class="form-control">
-                            <option value="">Seleccione un estado</option>
+                            <option value="">Estado</option>
                             <option value="Aguascalientes">Aguascalientes</option>
                             <option value="Baja California">Baja California</option>
                             <option value="Baja California Sur">Baja California Sur</option>
