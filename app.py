@@ -122,5 +122,9 @@ def somos():
 def cuenta():
     return render_template('cuenta.html')
 
+@app.route('/datos')
+def datos():
+    return render_template('datos.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
