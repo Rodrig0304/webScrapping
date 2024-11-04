@@ -1,8 +1,36 @@
 from flask import Flask, render_template, request
 import requests
 from bs4 import BeautifulSoup
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+# Config de base de datos
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+db = SQLAlchemy(app)
+
+# Modelos de base de datos
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombreUsuario = db.Column(db.String(50), nullable=False)
+    correo = db.Column(db.String(100), nullable=False)
+    contraseña = db.Column(db.String(255), nullable=False)
+
+    def _repr1_(self) -> str:
+        return f"Usuario {self.id}"
+
+class Empleos(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    favorito = db.Column(db.Boolean, nullable=False)
+    nombreEmpleo = db.Column(db.String(100), nullable=False)
+    nombreEmpresa = db.Column(db.String(50), nullable=False)
+    ubicacion = db.Column(db.String(150), nullable=False)
+    salario = db.Column(db.String(20), nullable=False)
+    horaPublicacion = db.Column(db.String(20), nullable=False)
+    enlace = db.Column(db.String(255), nullable=False)
+
+    def _repr2_(self) -> str:
+        return f"Empleo {self.id}"
 
 def find_jobs(keyword):
     listJobsTitles = []
@@ -127,4 +155,7 @@ def datos():
     return render_template('datos.html')
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+
     app.run(debug=True)
