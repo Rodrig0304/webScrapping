@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 app = Flask(__name__)
 app.secret_key = "secret_key"
 
-# config de base de datos MySQL local
+# config de base de datos MySQL
 try:
     con = mysql.connector.connect(
         host="localhost",
@@ -147,7 +147,7 @@ def cuenta():
 
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
-    # registrar usuario en BD
+    # registrar usuario en BD de MySQL
     if request.method == 'POST':
         username = request.form['nombreUsuario']
         email = request.form['correoElectronico']
