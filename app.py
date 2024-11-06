@@ -1,22 +1,31 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 import requests
 import mysql.connector
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
+app.secret_key = "secret_key"
 
-# config de base de datos MySQL
-def check_db_connection():
-    try:
-        con = mysql.connector.connect(
-            host="feralcojam.mysql.pythonanywhere-services.com",
-            user="feralcojam",
-            password="@EAI_04-11/24",
-            database="feralcojam$eai_db"
-        )
-        return True
-    except mysql.connector.Error as e:
-        return False
+# config de base de datos MySQL local
+try:
+    con = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345",
+        database="empleosallinstante"
+    )
+    message = "Se conectó"
+    mycursor = con.cursor()
+
+except mysql.connector.Error as e:
+    message = "No se conectó"
+
+# método para registrar usuario en BD
+def sign_up_user(username, email, password):
+    query = "INSERT INTO Usuario (nombreUsuario, correoElectronico, contraseñaUsuario) VALUES (%s, %s, %s);"
+    values = (username, email, password)
+    mycursor.execute(query, values)
+    con.commit()
 
 def find_jobs(keyword):
     listJobsTitles = []
@@ -99,14 +108,6 @@ def find_jobs(keyword):
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    # revisar si la BD está conectada
-    is_connected = check_db_connection()
-    
-    if is_connected:
-        message = 'Se conectó a la BD'
-    else:
-        message = 'No se conectó a la BD'
-
     keyword = request.args.get('keyword', 'programador')
     location = request.args.get('location', '')
     job_type = request.args.get('job_type', '')
@@ -134,7 +135,7 @@ def home():
             
             filtered_jobs.append(all_jobs[i])
 
-    return render_template('jobs.html', jobs=filtered_jobs, message = message)
+    return render_template('jobs.html', jobs=filtered_jobs)
 
 @app.route('/somos')
 def somos():
@@ -144,9 +145,21 @@ def somos():
 def cuenta():
     return render_template('cuenta.html')
 
+@app.route('/registro', methods=['GET', 'POST'])
+def registro():
+    # registrar usuario en BD
+    if request.method == 'POST':
+        username = request.form['nombreUsuario']
+        email = request.form['correoElectronico']
+        password = request.form['contraseñaUsuario']
+        sign_up_user(username, email, password)
+        return render_template('cuenta.html')
+    else:
+        return render_template('registro.html')
+
 @app.route('/datos')
 def datos():
-    return render_template('datos.html')
+    return render_template('datos.html', username = session['username'])
 
 if __name__ == '__main__':
     app.run(debug=True)
