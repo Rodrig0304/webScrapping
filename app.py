@@ -43,6 +43,25 @@ def login_user(email, password):
         print(f"Error en verificacion de usuario: {e}")
     return False
 
+# método para guardar trabajos en tabla empleo
+def save_jobs_db(jobs):
+    try:
+        query = """
+            INSERT INTO Empleo (tituloEmpleo, nombreEmpresa, ubicacionEmpleo,
+            salario, fechaPublicacion, enlaceOferta, tipoTrabajo)
+            VALUES (%s, %s, %s, %s, %s, %s, %s )
+        """
+        
+        for job in jobs:
+            # validar para ver si no hay valores nulos o vacíos
+            job = tuple(None if v == '' else v for v in job)
+            mycursor.execute(query, job)
+        
+        con.commit()
+        print("Datos guardados en la BD")
+    except mysql.connector.Error as e:
+        print(f"Error al guardar los datos en BD: {e}")
+
 def find_jobs(keyword):
     listJobsTitles = []
     hyperlinks = []
@@ -136,7 +155,10 @@ def home():
         if (i < len(companies) and i < len(workSites) and 
             i < len(salaries) and i < len(jobTypes) and 
             i < len(postedTimes)):
-            all_jobs.append((listJobsTitles[i], hyperlinks[i], companies[i], workSites[i], salaries[i], jobTypes[i], postedTimes[i]))
+            all_jobs.append((listJobsTitles[i], companies[i], workSites[i], salaries[i], postedTimes[i], hyperlinks[i], jobTypes[i]))
+
+    # guardar empleos en BD
+    save_jobs_db(all_jobs)
 
     filtered_jobs = all_jobs 
 
