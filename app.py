@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 import mysql.connector
+
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
@@ -22,10 +24,24 @@ except mysql.connector.Error as e:
 
 # método para registrar usuario en BD
 def sign_up_user(username, email, password):
+    hashedPassword = generate_password_hash(password)
     query = "INSERT INTO Usuario (nombreUsuario, correoElectronico, contraseñaUsuario) VALUES (%s, %s, %s);"
-    values = (username, email, password)
+    values = (username, email, hashedPassword)
     mycursor.execute(query, values)
     con.commit()
+
+# método para ingresar sesion con usuario existente en BD
+def login_user(email, password):
+    try:
+        query = "SELECT contraseñaUsuario FROM Usuario WHERE correoElectronico = %s"
+        mycursor.execute(query, (email,))
+        result = mycursor.fetchone()
+
+        if result and check_password_hash(result[0], password):
+            return True
+    except mysql.connector.Error as e:
+        print(f"Error en verificacion de usuario: {e}")
+    return False
 
 def find_jobs(keyword):
     listJobsTitles = []
@@ -141,8 +157,18 @@ def home():
 def somos():
     return render_template('somos.html')
 
-@app.route('/cuenta')
+@app.route('/cuenta', methods=['GET', 'POST'])
 def cuenta():
+    if request.method == 'POST':
+        email = request.form['correoElectronico']
+        password = request.form['contraseñaUsuario']
+
+        if login_user(email, password):
+            session['email'] = email
+            return redirect(url_for('datos'))
+        else:
+            flash('Correo o contraseña incorrectos, intenta de nuevo', 'error')
+            return render_template('cuenta.html')
     return render_template('cuenta.html')
 
 @app.route('/registro', methods=['GET', 'POST'])
@@ -159,7 +185,7 @@ def registro():
 
 @app.route('/datos')
 def datos():
-    return render_template('datos.html', username = session['username'])
+    return render_template('datos.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
