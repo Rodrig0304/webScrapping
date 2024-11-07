@@ -33,12 +33,12 @@ def sign_up_user(username, email, password):
 # método para ingresar sesion con usuario existente en BD
 def login_user(email, password):
     try:
-        query = "SELECT contraseñaUsuario FROM Usuario WHERE correoElectronico = %s"
+        query = "SELECT nombreUsuario, contraseñaUsuario FROM Usuario WHERE correoElectronico = %s"
         mycursor.execute(query, (email,))
         result = mycursor.fetchone()
 
-        if result and check_password_hash(result[0], password):
-            return True
+        if result and check_password_hash(result[1], password):
+            return result[0]
     except mysql.connector.Error as e:
         print(f"Error en verificacion de usuario: {e}")
     return False
@@ -159,12 +159,15 @@ def somos():
 
 @app.route('/cuenta', methods=['GET', 'POST'])
 def cuenta():
+    # iniciar sesion de usuario en BD
     if request.method == 'POST':
         email = request.form['correoElectronico']
         password = request.form['contraseñaUsuario']
 
-        if login_user(email, password):
+        username = login_user(email, password)
+        if username:
             session['email'] = email
+            session['username'] = username
             return redirect(url_for('datos'))
         else:
             flash('Correo o contraseña incorrectos, intenta de nuevo', 'error')
@@ -173,7 +176,7 @@ def cuenta():
 
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
-    # registrar usuario en BD de MySQL
+    # registrar usuario en BD
     if request.method == 'POST':
         username = request.form['nombreUsuario']
         email = request.form['correoElectronico']
@@ -185,7 +188,10 @@ def registro():
 
 @app.route('/datos')
 def datos():
-    return render_template('datos.html')
+    if 'email' in session and 'username' in session:
+        return render_template('datos.html', username=session['username'])
+    else:
+        return redirect(url_for('cuenta'))
 
 if __name__ == '__main__':
     app.run(debug=True)
